@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <title>Calma y Orden — Edición Digital Interactiva</title>
 <!-- Formato KDP: páginas de 6 x 9 pulgadas. Al imprimir: márgenes = Ninguno, activar "Gráficos de fondo". -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Eternalo&family=Photograph+Signature&family=Urbanist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#3b3a52; --paper:#ffffff; --cream:#f2f2f2;
@@ -55,7 +58,21 @@
   .sec{font-family:'Eternalo',Georgia,serif;font-size:26px;font-weight:normal;color:#6463aa;border-bottom:2px dashed var(--soft);
        padding-bottom:7px;margin-bottom:13px;}
   .daily-title{font-family:'Urbanist','Segoe UI',sans-serif !important;font-size:19px !important;font-weight:700 !important;}
-  .sub{font-size:13.5px;color:var(--sage);margin:13px 0 7px;font-weight:700;}
+
+  /* ===== Portada a página completa ===== */
+  .page.cover{padding:0;overflow:hidden;}
+  .page.cover .cover-frame{
+    position:absolute;inset:0;margin:0;padding:0;border:none;border-radius:0;
+    background:linear-gradient(135deg,#6463aa 0%,#8e8cc4 55%,#ccc9e6 100%);
+    display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+  }
+  .page.cover .cover-frame h1{font-family:'Eternalo',Georgia,serif;font-size:50px;line-height:1.12;color:#fff;font-weight:normal;margin:10px 0;}
+  .page.cover .cover-frame h1 .script{font-family:'Photograph Signature',cursive;font-weight:normal;}
+  .page.cover .cover-frame .kicker{color:#f2f2f2;}
+  .page.cover .cover-frame .cover-sub{font-size:12.5px;font-style:italic;color:#fff;max-width:3.6in;line-height:1.6;}
+  .page.cover .cover-frame .year{font-family:'Eternalo',Georgia,serif;font-size:22px;letter-spacing:.45em;color:#fff;margin-top:22px;}
+  .page.cover .cover-frame .cover-note{font-size:11px;color:#f2f2f2;margin-top:14px;}
+
   .body{font-size:11.5px;line-height:1.65;margin-bottom:9px;color:#4a4870;}
   .prompt-q{font-weight:300 !important;}
   .list{list-style:none;}
@@ -135,10 +152,10 @@ let out = '';
 let numPg = 0;
 let K = 0;
 const key = () => 'k' + (K++);
-function page(inner, foot, showNum, id){
+function page(inner, foot, showNum, id, cls){
   numPg++;
   const badge = (showNum === false) ? '' : '<div class="pagenum">'+numPg+'</div>';
-  out += '<section class="page"' + (id ? ' id="'+id+'"' : '') + '>' + inner + badge +
+  out += '<section class="page' + (cls ? ' '+cls : '') + '"' + (id ? ' id="'+id+'"' : '') + '>' + inner + badge +
          '<footer class="pgfoot">' + (foot || BOOK) + '</footer></section>';
 }
 const L = n => Array(n).fill(0).map(()=>'<input class="wline" data-key="'+key()+'">').join('');
@@ -210,7 +227,7 @@ page('<div class="cover-frame">' +
        '<p class="cover-sub">Un espacio para cuidar tu paz mental mientras ordenas tus días, tus tareas y tus metas.</p>' +
        '<div class="year">'+YEAR+'</div>' +
        '<p class="cover-note">Edición digital interactiva · Escribe directamente aquí, tus avances se guardan automáticamente</p>' +
-     '</div>', '', false);
+     '</div>', '', false, null, 'cover');
 
 page('<div class="center-v">' +
        lbl('Este journal pertenece a') + L(2) + gap(22) +
